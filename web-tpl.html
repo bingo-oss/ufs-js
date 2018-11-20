@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .btn{
+            height: 30px;
+            border: 1px solid #dddddd;
+            outline: none;
+            cursor: pointer;
+        }
+        .title{
+            
+        }
+        .result{
+            height: 200px;
+            border:1px solid #dddddd;
+            background: #000000;
+            color: #ffffff;
+            padding:20px;
+            overflow:scroll;
+            margin-bottom: 10px;
+        }
+        .upload{
+            height: 100px;;
+        }
+    </style>
+    <script>
+        function doUpload(){
+            var files = document.getElementById("fileInput").files;
+            if(files.length>0){
+                window.ufsUploadTest(files[0]);
+            }else{
+                alert("请先选择文件");
+            }
+        }
+        function clearLog(){
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <h3 class="title">上传测试</h3>
+    <div class="upload">
+        <input id="fileInput" type="file">
+        <br /><br />
+        <input type="button" class="btn" value="测试上传" onclick="doUpload()"/>
+    </div>
+    <h3 class="title">转换测试</h3>
+    
+    <h3 class="title">返回结果</h3>
+    <div  id="result" class="result">
+       
+    </div>
+    <input type="button" class="btn" value="清理日志" onclick="clearLog()"/>
+</body>
+</html>
