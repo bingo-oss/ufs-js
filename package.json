@@ -4,6 +4,18 @@
   "description": "UFS Javascript SDK",
   "author": "",
   "license": "MIT",
+  "keywords": [
+    "ufs",
+    "js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bingo-oss/ufs-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bingo-oss/ufs-js/issues"
+  },
+  "homepage": "https://github.com/bingo-oss/ufs-js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register -r jsdom-global/register",
     "jsdoc": "jsdoc src/ufs.js -d ./jsdoc",
