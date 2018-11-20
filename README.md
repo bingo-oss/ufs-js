@@ -122,3 +122,7 @@ testUpload(){
 }
 ```
 
+
+# API 参考
+
+更多API的接口，请参考 [UFS API](https://github.com/bingo-oss/ufs-js/blob/master/docs/api.md)
