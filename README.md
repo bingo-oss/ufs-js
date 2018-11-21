@@ -18,7 +18,7 @@ import {StorageClient,ConvertClient} from "ufs-client-js";
 ```
 
 ## web安装
-假如工程中没有使用npm进行管理，可以直接下载 [dist/ufs.js](https://github.com/bingo-oss/ufs-client-js/blob/master/dist/ufs.js) ,并将其引入到页面:
+假如工程中没有使用npm进行管理，可以直接下载 [dist/ufs.js](https://github.com/bingo-oss/ufs-js/blob/master/dist/ufs.js) ,并将其引入到页面:
 
 ```JavaScript
 <script src="./script/ufs.js"></script>
