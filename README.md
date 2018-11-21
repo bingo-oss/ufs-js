@@ -1,4 +1,4 @@
-# ufs-js 
+# ufs-client-js 
 
 该JSSDK支持Web、BT、Weex中使用，内部会自动适配所在框架环境。SDK暂不支持：应用注册、应用注销、预览 API。
 
@@ -8,12 +8,12 @@
 ## npm安装：
 
 ```
-npm install ufs-js --save
+npm install ufs-client-js --save
 ```
 代码中引入
 
 ```
-import {StorageClient,ConvertClient} from "ufs-js";
+import {StorageClient,ConvertClient} from "ufs-client-js";
 
 ```
 

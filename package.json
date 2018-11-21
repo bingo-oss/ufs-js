@@ -1,7 +1,7 @@
 {
-  "name": "ufs-js",
-  "version": "0.1.1",
-  "description": "UFS Javascript SDK",
+  "name": "ufs-client-js",
+  "version": "0.1.0",
+  "description": "品高统一文件服务(UFS) JSSDK",
   "author": "",
   "license": "MIT",
   "keywords": [
