@@ -1,6 +1,6 @@
 {
   "name": "ufs-client-js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "品高统一文件服务(UFS) JSSDK",
   "author": "",
   "license": "MIT",
@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/bingo-oss/ufs-js",
   "scripts": {
-    "jsdoc": "jsdoc2md src/ufs.js > docs/api.md",
+    "jsdoc": "jsdoc2md src/ufs.js > docs/api.md & jsdoc2md src/ufs-bt-plugin.js > docs/api-bt.md",
     "build": "webpack",
-    "dev": "webpack --mode development & webpack-dev-server --port 3000 ",
+    "dev": "webpack --mode development & webpack-dev-server --port 3000 --host 0.0.0.0",
     "prod": "webpack --mode production"
   },
   "dependencies": {},

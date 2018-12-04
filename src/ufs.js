@@ -1,7 +1,7 @@
 import {fetchAdapter,uploadAdapter} from "./common";
 
 /**
- *  UFS 文件存储客户端
+ *  UFS 文件存储客户端 适用于 Web和Weex
  */
 export class StorageClient {
     /**
@@ -170,7 +170,7 @@ export class StorageClient {
 }
 
 /**
- * UFS 文件转换客户端
+ * UFS 文件转换客户端 适用于 Web和Weex
  */
 export class ConvertClient {
     /**

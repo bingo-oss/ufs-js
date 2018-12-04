@@ -2,17 +2,17 @@
 
 <dl>
 <dt><a href="#StorageClient">StorageClient</a></dt>
-<dd><p>UFS 文件存储客户端</p>
+<dd><p>UFS 文件存储客户端 适用于 Web和Weex</p>
 </dd>
 <dt><a href="#ConvertClient">ConvertClient</a></dt>
-<dd><p>UFS 文件转换客户端</p>
+<dd><p>UFS 文件转换客户端 适用于 Web和Weex</p>
 </dd>
 </dl>
 
 <a name="StorageClient"></a>
 
 ## StorageClient
-UFS 文件存储客户端
+UFS 文件存储客户端 适用于 Web和Weex
 
 **Kind**: global class  
 
@@ -151,7 +151,7 @@ UFS 文件存储客户端
 <a name="ConvertClient"></a>
 
 ## ConvertClient
-UFS 文件转换客户端
+UFS 文件转换客户端 适用于 Web和Weex
 
 **Kind**: global class  
 

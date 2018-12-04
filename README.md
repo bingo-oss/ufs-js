@@ -28,11 +28,12 @@ import {StorageClient,ConvertClient} from "ufs-client-js";
 
 
 
+
 # 使用指南
 
 
-## Web\BT示例(BUI适用）
-以选择文件上传为例
+## Web 示例
+以选择文件上传为例, BUI中如果使用inpu type='file'选择的文件也可以通过这种方式操作。
 
 ```JavaScript
 ...
@@ -123,6 +124,62 @@ testUpload(){
 ```
 
 
+## BT/BUI示例
+
+```JavaScript
+
+//选择图片或者拍照
+navigator.camera.getPicture(function (imageURI) {
+        window.resolveLocalFileSystemURI(imageURI, gotFileEntry, onFileFail);
+        function gotFileEntry(fileEntry) {
+            filePath = fileEntry.fullPath;
+            //得到图片路径并上传
+            upload(filePath);
+        }
+        function onFileFail(err) {
+            app.alert(err);
+        }
+    },
+    function (message) {
+        app.alert('get picture failed');
+    }, {
+        quality: 50,
+        destinationType: navigator.camera.DestinationType.FILE_URI,
+        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+    }
+);
+
+function upload(filePath) {
+    //执行上传
+    ufs.upload({
+        server:apiServer,
+        token:token,
+        file:filePath
+    },(res)=>{
+        var fileId = res.id;
+        app.alert("fileId:"+res.id);
+
+        //根据fileId获取上传后的路径
+        ufs.urlFor({
+            server:"http://ufs-dev.bingosoft.net/api/",//替换成实际的
+            token:"95945422-a5a9-43c8-b126-51aea17367f3", //替换成实际的
+            fileId:fileId
+        },(res)=>{
+            app.alert(res);
+        },(err)=>{
+            app.alert(err);
+        });
+    },(err)=>{
+        alert(err);
+    });
+}
+```
+
+
 # API 参考
 
-更多API的接口，请参考 [UFS API](https://github.com/bingo-oss/ufs-js/blob/master/docs/api.md)
+更多API的接口，请参考:
+
+Web & Weex => [UFS API](https://github.com/bingo-oss/ufs-js/blob/master/docs/api.md)
+
+BUI => [UFS-BT API](https://github.com/bingo-oss/ufs-js/blob/master/docs/api-bt.md)

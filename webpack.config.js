@@ -32,5 +32,5 @@ module.exports = {
             chunks:["webtest"]
         })
     ],
-    devtool: modeFlag?'inline-source-map':''
+    // devtool: modeFlag?'inline-source-map':''
 }
