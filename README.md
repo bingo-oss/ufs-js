@@ -27,7 +27,7 @@ import {StorageClient,ConvertClient} from "ufs-client-js";
 该js会把 ufs 对象暴露在window下面，可以通过 `ufs.StorageClient` / `ufs.ConvertClient `获取相关对象。
 
 ## BUI安装
-假如是BT或者BUI的工程，可以直接下载 [src/ufs-bt-plugin.js](https://github.com/bingo-oss/ufs-js/blob/master/dist/ufs-bt-plugin.js),并将其引入页面：
+假如是BT或者BUI的工程，可以直接下载 [src/ufs-bt-plugin.js](https://github.com/bingo-oss/ufs-js/blob/master/src/ufs-bt-plugin.js),并将其引入页面：
 
 
 ```html
