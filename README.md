@@ -20,13 +20,21 @@ import {StorageClient,ConvertClient} from "ufs-client-js";
 ## web安装
 假如工程中没有使用npm进行管理，可以直接下载 [dist/ufs.js](https://github.com/bingo-oss/ufs-js/blob/master/dist/ufs.js) ,并将其引入到页面:
 
-```JavaScript
+```html
 <script src="./script/ufs.js"></script>
 
 ```
 该js会把 ufs 对象暴露在window下面，可以通过 `ufs.StorageClient` / `ufs.ConvertClient `获取相关对象。
 
+## BUI安装
+假如是BT或者BUI的工程，可以直接下载 [src/ufs-bt-plugin.js](https://github.com/bingo-oss/ufs-js/blob/master/dist/ufs-bt-plugin.js),并将其引入页面：
 
+
+```html
+<script src="./script/ufs-bt-plugin.js"></script>
+
+```
+该js会把 ufs 对象暴露在window下面，可以通过 `ufs.upload` 进行直接操作（区别于上面两种方式）
 
 
 # 使用指南
@@ -35,11 +43,11 @@ import {StorageClient,ConvertClient} from "ufs-client-js";
 ## Web 示例
 以选择文件上传为例, BUI中如果使用inpu type='file'选择的文件也可以通过这种方式操作。
 
-```JavaScript
-...
+```html
 <input id="fileInput" type="file">
-...
+```
 
+```JavaScript
 
 function testUpload() {
 		//根据实际情况更换地址
