@@ -11,6 +11,9 @@ window.ufs = {};
  * @param {string} options.server UFS部署的地址
  * @param {string} options.token 验证令牌
  * @param {string} options.file 文件路径，拍照或者选择文件后的物理路径
+ * @param {string} options.storage 要使用存储引擎名称
+ * @param {string} options.host 需要替换的host（应对公安内外网情形）
+ * @param {string} options.port 需要替换的port
  * @param {function} success 成功回调
  * @param {function} error 失败回调
  */
