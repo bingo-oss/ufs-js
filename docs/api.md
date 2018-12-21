@@ -133,6 +133,7 @@ UFS 文件存储客户端 适用于 Web和Weex
 | --- | --- | --- |
 | request | <code>Object</code> | 请求信息 |
 | request.fileId | <code>string</code> | 文件 ID |
+| request.storage | <code>string</code> | 指定存储名称 |
 | request.requestHeaders | <code>Object</code> | 要进行签要的 HTTP 请求头 |
 | request.requestParameters | <code>Object</code> | 要进行签名的 HTTP QUERY 参数 |
 | request.responseHeaderOverrides | <code>Object</code> | 下载时要重写的文件 HTTP Response Headers |

@@ -12,8 +12,8 @@ window.ufs = {};
  * @param {string} options.token 验证令牌
  * @param {string} options.file 文件路径，拍照或者选择文件后的物理路径
  * @param {string} options.storage 要使用存储引擎名称
- * @param {string} options.host 需要替换的host（应对公安内外网情形）
- * @param {string} options.port 需要替换的port
+ * @param {string} options.commitStorage 提交时候要使用的存储引擎名称，默认使用storage
+ * @param {string} options.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE
  * @param {function} success 成功回调
  * @param {function} error 失败回调
  */
@@ -28,6 +28,7 @@ ufs.upload = function (options,success,error){
  * @param {string} options.server UFS部署的地址
  * @param {string} options.fileId 文件ID
  * @param {string} options.token 验证令牌
+ * @param {string} options.storage 要使用存储引擎名称
  * @param {object} options.requestHeaders 要进行签要的 HTTP 请求头
  * @param {object} options.requestParameters 要进行签名的 HTTP QUERY 参数
  * @param {object} options.responseHeaderOverrides 下载时要重写的文件 HTTP Response Headers

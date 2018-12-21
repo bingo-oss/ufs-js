@@ -1,6 +1,6 @@
 import {StorageClient,ConvertClient} from "../src/ufs";
 
-const apiServer = "http://ufs-dev.bingosoft.net/api/";
+const apiServer = "http://ufs-dev.bingosoft.net/api";
 const ssoServer = "http://10.201.78.206/sso";
 const username = "admin";
 const password = "cj123456";

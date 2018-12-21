@@ -30,6 +30,9 @@ UFS BingoTouch Plugin 适用于BingoTouch，BUI中使用
 | options.server | <code>string</code> | UFS部署的地址 |
 | options.token | <code>string</code> | 验证令牌 |
 | options.file | <code>string</code> | 文件路径，拍照或者选择文件后的物理路径 |
+| options.storage | <code>string</code> | 要使用存储引擎名称 |
+| options.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，默认使用storage |
+| options.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE |
 | success | <code>function</code> | 成功回调 |
 | error | <code>function</code> | 失败回调 |
 
@@ -46,6 +49,7 @@ UFS BingoTouch Plugin 适用于BingoTouch，BUI中使用
 | options.server | <code>string</code> | UFS部署的地址 |
 | options.fileId | <code>string</code> | 文件ID |
 | options.token | <code>string</code> | 验证令牌 |
+| options.storage | <code>string</code> | 要使用存储引擎名称 |
 | options.requestHeaders | <code>object</code> | 要进行签要的 HTTP 请求头 |
 | options.requestParameters | <code>object</code> | 要进行签名的 HTTP QUERY 参数 |
 | options.responseHeaderOverrides | <code>object</code> | 下载时要重写的文件 HTTP Response Headers |

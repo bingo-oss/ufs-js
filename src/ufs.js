@@ -138,9 +138,11 @@ export class StorageClient {
      * 签名文件下载请求，并返回产生的文件下载 URL信息（object)
      * @param {Object} request 请求信息
      * @param {string} request.fileId 文件 ID
+     * @param {string} request.storage 指定存储名称
      * @param {Object} request.requestHeaders 要进行签要的 HTTP 请求头
      * @param {Object} request.requestParameters 要进行签名的 HTTP QUERY 参数
      * @param {Object} request.responseHeaderOverrides 下载时要重写的文件 HTTP Response Headers
+     * 
      * @returns {Promise<String>} 下载地址 URL
      */
     urlFor(request) {
