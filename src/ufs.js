@@ -88,7 +88,7 @@ export class StorageClient {
      * @param {Object} request 上传请求对象
      * @param {string} request.storage 要使用存储引擎名称
      * @param {Object} request.file 文件对象，例如：document.getElementById("fileInput").files[0]
-     * @param {string} request.contentTpe 文件内容类型
+     * @param {string} request.contentType 文件内容类型
      * @param {string} request.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE
      * @param {Object} request.metadata 文件元数据
      * @param {Object} request.requestHeaders 要签名的请求头

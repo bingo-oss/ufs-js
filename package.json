@@ -1,6 +1,6 @@
 {
   "name": "ufs-client-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "品高统一文件服务(UFS) JSSDK",
   "author": "",
   "license": "MIT",
@@ -8,6 +8,7 @@
     "ufs",
     "js"
   ],
+  "main": "dist/ufs.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/bingo-oss/ufs-js.git"
