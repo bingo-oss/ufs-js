@@ -52,7 +52,8 @@ let uploadTest = (file) => {
             printLog(`上传结果: ${JSON.stringify(fileStatus)}`);
     
             return storageClient.urlFor({
-                fileId: fileStatus.id
+                fileId: fileStatus.id,
+                responseHeaderOverrides:{'Content-Disposition':`attachment; filename=${file.name}`}
             }).then(res => {
                 printLog(`文件路径: ${res.url}`);
             });
