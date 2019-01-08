@@ -7,7 +7,17 @@ function _createAjax() {
     }
     return xmlhttp;
 }
-
+//如果ajax支持进度并且options指定了进度函数，附加进度事件回调
+function attachUploadProgress(xhr,options){
+    if (xhr.upload&&options&&options.onProgress) {
+        xhr.upload.onprogress = function progress(e) {
+            if (e.total > 0) {
+                e.percent = e.loaded / e.total * 100;
+            }
+            options.onProgress(e);
+        };
+    }
+}
 export function fetchAdapter(url, options) {
     options = Object.assign({}, options);
     try {
@@ -32,6 +42,7 @@ export function fetchAdapter(url, options) {
         // web client ajax
         return new Promise((resolve, reject) => {
             let xhr = _createAjax();
+            attachUploadProgress(xhr,options);
             let method = options.method || "GET";
             xhr.open(method, url);
             if (options.headers) {
@@ -81,6 +92,7 @@ export function uploadAdapter(url, options, fileObj) {
         //web client upload
         return new Promise((resolve, reject) => {
             let xhr = _createAjax();
+            attachUploadProgress(xhr,options);
             let method = options.method || "PUT";
             xhr.open(method, url, true);
             if (options.headers) {
