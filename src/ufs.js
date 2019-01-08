@@ -1,5 +1,34 @@
 import {fetchAdapter,uploadAdapter} from "./common";
 
+function pathsJoin(...args){
+    let paths=[];
+    let firstStartsWithSlash=false;
+    if(args.length>0){
+        firstStartsWithSlash=args[0].startsWith('/');
+    }
+    for (let el of args) {
+        let t=el;
+        if(el.endsWith('/')){
+            t= el.substr(0,el.length-1);
+        }else if(el.startsWith('/')){
+            t= el.substr(1,el.length);
+        }
+        paths.push(t);
+    }
+    let _path= paths.join('/');
+    return firstStartsWithSlash?`/${_path}`:_path;
+}
+function rebuildUrlIfNecessary(url,options){
+    if(!url){
+        return url;
+    }
+    //兼容相对路径地址
+    if((!url.startsWith('http'))&&options.baseUrl){
+        url=pathsJoin(options.baseUrl,url);
+        return url;
+    }
+    return url;
+}
 /**
  *  UFS 文件存储客户端 适用于 Web和Weex
  */
@@ -96,8 +125,10 @@ export class StorageClient {
      * @param {Object} request.responseHeaders 以后进行文件下载时，文件的 HTTP Response Headers
      * @returns {Promise<FileStatus>} 已经成功上传的文件信息，See {@link https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status}
      */
-    upload(request) {
+    upload(request,options) {
         request = request || {};
+        options = options || {};
+        options.headers=options.headers||{};
         //获取文件签名
         return this.generatePresignedUpload(request)
             .then(res => {
@@ -105,8 +136,10 @@ export class StorageClient {
                     res = JSON.parse(res);
                 }
                 if (res.url) {
-                    let options = {
-                        headers:res.headers
+                    options.headers=Object.assign(options.headers,res.headers);
+                    //兼容相对路径地址
+                    if((!res.url.startsWith('http'))&&options.baseUrl){
+                        res.url=rebuildUrlIfNecessary(res.url,options);
                     }
                     //上传文件
                     return uploadAdapter(res.url,options,request.file).then(()=>{
