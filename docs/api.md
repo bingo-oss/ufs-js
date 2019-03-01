@@ -113,8 +113,9 @@ UFS 文件存储客户端 适用于 Web和Weex
 | --- | --- | --- |
 | request | <code>Object</code> | 上传请求对象 |
 | request.storage | <code>string</code> | 要使用存储引擎名称 |
+| request.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，默认使用storage |
 | request.file | <code>Object</code> | 文件对象，例如：document.getElementById("fileInput").files[0] |
-| request.contentTpe | <code>string</code> | 文件内容类型 |
+| request.contentType | <code>string</code> | 文件内容类型 |
 | request.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE |
 | request.metadata | <code>Object</code> | 文件元数据 |
 | request.requestHeaders | <code>Object</code> | 要签名的请求头 |
@@ -133,7 +134,7 @@ UFS 文件存储客户端 适用于 Web和Weex
 | --- | --- | --- |
 | request | <code>Object</code> | 请求信息 |
 | request.fileId | <code>string</code> | 文件 ID |
-| request.storage | <code>string</code> | 指定存储名称 |
+| request.storage | <code>string</code> | 要使用存储引擎名称 |
 | request.requestHeaders | <code>Object</code> | 要进行签要的 HTTP 请求头 |
 | request.requestParameters | <code>Object</code> | 要进行签名的 HTTP QUERY 参数 |
 | request.responseHeaderOverrides | <code>Object</code> | 下载时要重写的文件 HTTP Response Headers |

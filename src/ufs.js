@@ -116,6 +116,7 @@ export class StorageClient {
      * 上传文件(先进行签名)
      * @param {Object} request 上传请求对象
      * @param {string} request.storage 要使用存储引擎名称
+     * @param {string} request.commitStorage 提交时候要使用的存储引擎名称，默认使用storage
      * @param {Object} request.file 文件对象，例如：document.getElementById("fileInput").files[0]
      * @param {string} request.contentType 文件内容类型
      * @param {string} request.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE
@@ -154,6 +155,7 @@ export class StorageClient {
                 let url = `${this.url}/file/upload/commit`;
                 let body = JSON.stringify({
                     "storage": request.storage,
+                    "commitStorage": request.commitStorage,
                     "uploadId": uploadId,
                     "contentType": request.contentType,
                     "accessControl": request.accessControl,
@@ -171,7 +173,7 @@ export class StorageClient {
      * 签名文件下载请求，并返回产生的文件下载 URL信息（object)
      * @param {Object} request 请求信息
      * @param {string} request.fileId 文件 ID
-     * @param {string} request.storage 指定存储名称
+     * @param {string} request.storage 要使用存储引擎名称
      * @param {Object} request.requestHeaders 要进行签要的 HTTP 请求头
      * @param {Object} request.requestParameters 要进行签名的 HTTP QUERY 参数
      * @param {Object} request.responseHeaderOverrides 下载时要重写的文件 HTTP Response Headers
