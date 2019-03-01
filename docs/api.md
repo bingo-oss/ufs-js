@@ -113,7 +113,7 @@ UFS 文件存储客户端 适用于 Web和Weex
 | --- | --- | --- |
 | request | <code>Object</code> | 上传请求对象 |
 | request.storage | <code>string</code> | 要使用存储引擎名称 |
-| request.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，默认使用storage |
+| request.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage |
 | request.file | <code>Object</code> | 文件对象，例如：document.getElementById("fileInput").files[0] |
 | request.contentType | <code>string</code> | 文件内容类型 |
 | request.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE |

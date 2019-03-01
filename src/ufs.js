@@ -116,7 +116,7 @@ export class StorageClient {
      * 上传文件(先进行签名)
      * @param {Object} request 上传请求对象
      * @param {string} request.storage 要使用存储引擎名称
-     * @param {string} request.commitStorage 提交时候要使用的存储引擎名称，默认使用storage
+     * @param {string} request.commitStorage 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage
      * @param {Object} request.file 文件对象，例如：document.getElementById("fileInput").files[0]
      * @param {string} request.contentType 文件内容类型
      * @param {string} request.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE
@@ -154,8 +154,7 @@ export class StorageClient {
                 //提交commit
                 let url = `${this.url}/file/upload/commit`;
                 let body = JSON.stringify({
-                    "storage": request.storage,
-                    "commitStorage": request.commitStorage,
+                    "storage": request.commitStorage || request.storage, 
                     "uploadId": uploadId,
                     "contentType": request.contentType,
                     "accessControl": request.accessControl,
