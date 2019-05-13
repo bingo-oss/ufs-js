@@ -9,6 +9,10 @@ module.exports = {
         "ufs": "./src/ufs.js",
         "webtest": "./test/webtest.js"
     },
+    output: {
+        library: '[name]',
+        libraryTarget: 'umd'
+    },
     module: {
         rules: [{
                 test: /\.js$/,
