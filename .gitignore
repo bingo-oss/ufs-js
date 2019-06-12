@@ -5,3 +5,4 @@ npm-public.txt
 *.iml
 *.log
 /jsdoc
+test/.DS_Store
