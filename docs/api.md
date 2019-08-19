@@ -116,7 +116,7 @@ UFS 文件存储客户端 适用于 Web和Weex
 | request.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage |
 | request.file | <code>Object</code> | 文件对象，例如：document.getElementById("fileInput").files[0] |
 | request.contentType | <code>string</code> | 文件内容类型 |
-| request.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READWRITE |
+| request.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READ_WRITE |
 | request.metadata | <code>Object</code> | 文件元数据 |
 | request.requestHeaders | <code>Object</code> | 要签名的请求头 |
 | request.requestParameters | <code>Object</code> | 要签名的请求参数 |
@@ -133,11 +133,12 @@ UFS 文件存储客户端 适用于 Web和Weex
 | Param | Type | Description |
 | --- | --- | --- |
 | request | <code>Object</code> | 请求信息 |
-| request.fileId | <code>string</code> | 文件 ID |
-| request.storage | <code>string</code> | 要使用存储引擎名称 |
+| request.fileId | <code>String</code> | 文件 ID |
+| request.storage | <code>String</code> | 要使用存储引擎名称 |
 | request.requestHeaders | <code>Object</code> | 要进行签要的 HTTP 请求头 |
 | request.requestParameters | <code>Object</code> | 要进行签名的 HTTP QUERY 参数 |
 | request.responseHeaderOverrides | <code>Object</code> | 下载时要重写的文件 HTTP Response Headers |
+| request.expires | <code>String</code> | 过期时间，单位是秒，设置-1获取永久地址 |
 
 <a name="StorageClient+delete"></a>
 
