@@ -6,3 +6,4 @@ npm-public.txt
 *.log
 /jsdoc
 test/.DS_Store
+*.lock
