@@ -58,7 +58,7 @@ export function fetchAdapter(url, options) {
                     let response = JSON.parse(xhr.response);
                     resolve(response);
                 } else {
-                    reject(new Error(xhr.response), xhr.status);
+                    reject(xhr);
                 }
             }
             if (options.body) {
@@ -107,7 +107,7 @@ export function uploadAdapter(url, options, fileObj) {
                 if (xhr.status == 200) {
                     resolve();
                 } else {
-                    reject(new Error(xhr.response), xhr.status);
+                    reject(xhr);
                 }
             }
             xhr.send(fileObj);
