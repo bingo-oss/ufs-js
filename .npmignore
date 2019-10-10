@@ -1,0 +1,8 @@
+test
+docs
+node_modules
+.babelrc
+.gitignore
+package-lock.json
+yarn.lock
+webpack.*.js

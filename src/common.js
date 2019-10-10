@@ -1,6 +1,6 @@
 function _createAjax() {
     var xmlhttp = {};
-    if (window.XMLHttpRequest) {
+    if (XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");

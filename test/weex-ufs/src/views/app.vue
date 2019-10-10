@@ -15,7 +15,9 @@
 const globalEvent = weex.requireModule("globalEvent");
 const camera = weex.requireModule("CameraModule");
 const linkapi = require("linkapi");
-import { StorageClient } from '../../../../src/ufs.js'
+const ufs = require("ufs-client-js");
+// import ufs from "ufs-client-js";
+
 module.exports = {
   data() {
     return {
@@ -26,6 +28,7 @@ module.exports = {
     globalEvent.addEventListener("androidback", e => {
       this.$pop();
     });
+    this.$alert(typeof exports === 'object' && typeof module === 'object');
   },
   methods: {
     choose: function() {
@@ -42,7 +45,7 @@ module.exports = {
       // 设置ufs服务地址 和 token(token来自sso)
       let token = "bG9jYWw6NjY1MTc1ZGYtMGRkMy00OTc5LWJmNzYtNzQxZjM1M2YyMmM0";
       let apiServer = "http://10.200.21.128:31065/api";
-      let storage = new StorageClient(apiServer,{
+      let storage = new ufs.StorageClient(apiServer,{
         accessToken: token
       });
       storage.upload({
@@ -60,7 +63,9 @@ module.exports = {
             this.$alert(res.url);
             // this.filePath =res.url;
           });
-      });
+      }).catch(err=>{
+         this.$alert(err);
+      })
     }
   }
 };
