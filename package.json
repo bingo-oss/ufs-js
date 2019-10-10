@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/bingo-oss/ufs-js",
   "scripts": {
-    "jsdoc": "jsdoc2md src/ufs.js > docs/api.md & jsdoc2md src/ufs-bt-plugin.js > docs/api-bt.md",
+    "jsdoc": "jsdoc2md src/base.js > docs/api.md & jsdoc2md src/ufs-bt-plugin.js > docs/api-bt.md",
     "dev": "webpack-dev-server --env.development --config webpack.base.js",
     "dev:build": "webpack --env.development --config webpack.base.js",
     "prod": "webpack  --env.production --config webpack.base.js"

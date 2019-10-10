@@ -30,6 +30,9 @@ function rebuildUrlIfNecessary(url, options) {
   return url;
 }
 
+/**
+ * @class StorageClient
+ */
 export class StorageBase {
   /**
    *  构造函数
@@ -203,6 +206,9 @@ export class StorageBase {
   }
 }
 
+/**
+ * @class ConvertClient
+ */
 export class ConvertBase {
   /**
    *  构造函数
