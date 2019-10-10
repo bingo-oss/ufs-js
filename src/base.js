@@ -31,6 +31,7 @@ function rebuildUrlIfNecessary(url, options) {
 }
 
 /**
+ * ufs存储客户端
  * @class StorageClient
  */
 export class StorageBase {
@@ -65,6 +66,7 @@ export class StorageBase {
 
   /**
    * 获取指定的文件信息
+   * @method status
    * @param {string} fileId 文件 ID
    * @returns {Promise<FileStatus>}  See {@link https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status}
    */
@@ -75,6 +77,7 @@ export class StorageBase {
 
   /**
    * 获取指定文件的响应头信息
+   * @method getResponseHeaders
    * @param {string} fileId 文件 ID
    */
   getResponseHeaders(fileId) {
@@ -84,6 +87,7 @@ export class StorageBase {
 
   /**
    * 获取指定文件的元数据信息
+   * @method getMetadata
    * @param {string} fileId 文件 ID
    */
   getMetadata(fileId) {
@@ -115,6 +119,7 @@ export class StorageBase {
 
   /**
    * 上传文件(先进行签名)
+   * @method upload
    * @param {Object} request 上传请求对象
    * @param {string} request.storage 要使用存储引擎名称
    * @param {string} request.commitStorage 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage
@@ -171,6 +176,7 @@ export class StorageBase {
 
   /**
    * 签名文件下载请求，并返回产生的文件下载 URL信息（object)
+   * @method urlFor
    * @param {Object} request 请求信息
    * @param {String} request.fileId 文件 ID
    * @param {String} request.storage 要使用存储引擎名称
@@ -191,6 +197,7 @@ export class StorageBase {
 
   /**
    * 删除文件
+   * @method delete
    * @param {string} fileId 文件 ID
    * @returns {Promise}
    */
@@ -243,9 +250,9 @@ export class ConvertBase {
   }
 
   /**
-   * 添加文件转换作业，See {@link https://docs.bingosoft.net/paas/ufs/api/convert/_book/definitions.html#convertrequest}
+   * 添加文件转换作业
    * @param {Object} request 请求信息
-   * @returns {Promise<ConvertStatus>}  See {@link https://docs.bingosoft.net/paas/ufs/api/convert/_book/definitions.html#convertstatus}
+   * @returns {Promise<ConvertStatus>} 
    */
   enqueue(request) {
     let url = `${this.url}/convert`;
