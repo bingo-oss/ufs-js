@@ -35,7 +35,8 @@ let prepare = () => {
         printLog(`AccessToken: ${body.access_token}`);
         //构建client
         return new StorageClient(config.url, {
-            accessToken: config.accessToken
+            accessToken: config.accessToken,
+            version: "1.3.2"  // 1.3.2版本之后需要传
         });
     }).catch(err=>{
         printLog(err);

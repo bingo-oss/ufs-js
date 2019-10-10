@@ -16,7 +16,6 @@ const globalEvent = weex.requireModule("globalEvent");
 const camera = weex.requireModule("CameraModule");
 const linkapi = require("linkapi");
 const ufs = require("ufs-client-js");
-// import ufs from "ufs-client-js";
 
 module.exports = {
   data() {

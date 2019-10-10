@@ -39,13 +39,17 @@ export class StorageBase {
    *  构造函数
    * @param {string} url 服务器 URL
    * @param {Object} options 选项
-   * @param {(string|function)} options.accessToken 访问令牌
+   * @param {string} options.accessToken 访问令牌
+   * @param {string} options.version 服务端版本，1.3.2版本开始必须传该参数
    */
   constructor(url, options) {
     this.url = url;
     if (options) {
       if (options.accessToken) {
         this.accessToken = options.accessToken;
+      }
+      if (options.version) {
+        this.version = options.version;
       }
     }
   }
@@ -58,7 +62,8 @@ export class StorageBase {
   fetch(url, options) {
     let headers = {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + this.accessToken
+      Authorization: "Bearer " + this.accessToken,
+      "ufs-client-version": this.version
     };
     options.headers = Object.assign({}, options.headers, headers);
     return fetchAdapter(url, options);
@@ -109,7 +114,9 @@ export class StorageBase {
     let body = JSON.stringify({
       requestHeaders: request.requestHeaders,
       requestParameters: request.requestParameters,
-      storage: request.storage
+      storage: request.storage,
+      filename: request.file.name,
+      filesize: request.file.size
     });
     return this.fetch(url, {
       method: "POST",
@@ -136,6 +143,7 @@ export class StorageBase {
     request = request || {};
     options = options || {};
     options.headers = options.headers || {};
+
     //获取文件签名
     return this.generatePresignedUpload(request)
       .then(res => {
@@ -165,7 +173,9 @@ export class StorageBase {
           contentType: request.contentType,
           accessControl: request.accessControl,
           responseHeaders: request.responseHeaders,
-          metadata: request.metadata
+          metadata: request.metadata,
+          filename: request.file.name,
+          filesize: request.file.size
         });
         return this.fetch(url, {
           method: "POST",
@@ -252,7 +262,7 @@ export class ConvertBase {
   /**
    * 添加文件转换作业
    * @param {Object} request 请求信息
-   * @returns {Promise<ConvertStatus>} 
+   * @returns {Promise<ConvertStatus>}
    */
   enqueue(request) {
     let url = `${this.url}/convert`;
