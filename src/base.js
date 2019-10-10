@@ -63,7 +63,7 @@ export class StorageBase {
     let headers = {
       "Content-Type": "application/json",
       Authorization: "Bearer " + this.accessToken,
-      "ufs-client-version": this.version
+      "ufs-client-version": this.version || ''
     };
     options.headers = Object.assign({}, options.headers, headers);
     return fetchAdapter(url, options);
@@ -115,8 +115,8 @@ export class StorageBase {
       requestHeaders: request.requestHeaders,
       requestParameters: request.requestParameters,
       storage: request.storage,
-      filename: request.file.name,
-      filesize: request.file.size
+      filename: request.file.name || '',
+      filesize: request.file.size || ''
     });
     return this.fetch(url, {
       method: "POST",
@@ -174,8 +174,8 @@ export class StorageBase {
           accessControl: request.accessControl,
           responseHeaders: request.responseHeaders,
           metadata: request.metadata,
-          filename: request.file.name,
-          filesize: request.file.size
+          filename: request.file.name || '',
+          filesize: request.file.size || ''
         });
         return this.fetch(url, {
           method: "POST",
