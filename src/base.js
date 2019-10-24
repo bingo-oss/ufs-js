@@ -65,7 +65,6 @@ export class StorageBase {
         headers["Authorization"] = "Bearer " + this.accessToken;
         if (this.appId) {
             headers["x-ufs-appId"] = this.appId
-            };
         }
         options.headers = Object.assign({}, options.headers, headers);
         return fetchAdapter(url,options);
