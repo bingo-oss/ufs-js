@@ -35,39 +35,41 @@ function rebuildUrlIfNecessary(url, options) {
  * @class StorageClient
  */
 export class StorageBase {
-  /**
-   *  构造函数
-   * @param {string} url 服务器 URL
-   * @param {Object} options 选项
-   * @param {string} options.accessToken 访问令牌
-   * @param {string} options.version 服务端版本，1.3.2版本开始必须传该参数
-   */
-  constructor(url, options) {
-    this.url = url;
-    if (options) {
-      if (options.accessToken) {
-        this.accessToken = options.accessToken;
-      }
-      if (options.version) {
-        this.version = options.version;
-      }
+    /**
+     *  构造函数
+     * @param {string} url 服务器 URL
+     * @param {Object} options 选项
+     * @param {String} options.appId 应用ID
+     * @param {(string|function)} options.accessToken 访问令牌
+     */
+    constructor(url, options) {
+        this.url = url;
+        if (options) {
+            if (options.accessToken) {
+                this.accessToken = options.accessToken;
+            }
+            if(options.appId) {
+                this.appId = options.appId
+            }
+        }
     }
-  }
 
-  /**
-   * 发送请求
-   * @param {string} url 请求URL
-   * @param {Object} options 选项
-   */
-  fetch(url, options) {
-    let headers = {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + this.accessToken,
-      "ufs-client-version": this.version || ''
-    };
-    options.headers = Object.assign({}, options.headers, headers);
-    return fetchAdapter(url, options);
-  }
+    /**
+     * 发送请求
+     * @param {string} url 请求URL
+     * @param {Object} options 选项
+     */
+    fetch(url, options) {
+        let headers = {};
+        headers["Content-Type"] = "application/json";
+        headers["Authorization"] = "Bearer " + this.accessToken;
+        if (this.appId) {
+            headers["x-ufs-appId"] = this.appId
+            };
+        }
+        options.headers = Object.assign({}, options.headers, headers);
+        return fetchAdapter(url,options);
+    }
 
   /**
    * 获取指定的文件信息
@@ -165,21 +167,22 @@ export class StorageBase {
         }
       })
       .then(uploadId => {
+        const responseHeaders = { 
+            'Content-Disposition': "inline; filename=" + "'" + request.file.metadata.filename + "'"
+        }
         //提交commit
         let url = `${this.url}/file/upload/commit`;
         let body = JSON.stringify({
-          storage: request.commitStorage || request.storage,
-          uploadId: uploadId,
-          contentType: request.contentType,
-          accessControl: request.accessControl,
-          responseHeaders: request.responseHeaders,
-          metadata: request.metadata,
-          filename: request.file.name || '',
-          filesize: request.file.size || ''
+            "storage": request.commitStorage || request.storage, 
+            "uploadId": uploadId,
+            "contentType": request.contentType,
+            "accessControl": request.accessControl,
+            "responseHeaders": responseHeaders,
+            "metadata": request.file.metadata
         });
         return this.fetch(url, {
-          method: "POST",
-          body: body
+            method: "POST",
+            body:body
         });
       });
   }
@@ -221,6 +224,27 @@ export class StorageBase {
       body: body
     });
   }
+
+    /**
+     * 预览文件
+     * {Object} request 请求体
+     * {String}} request.fileId 文件 ID
+     * @returns {Promise} 
+     */
+    preview(request, options) {
+        request = request || {};
+        options = options || {};
+        options.headers=options.headers||{};
+        //获取文件签名
+        let url = `http://10.201.33.79:31064/preview/preview/oweb365/file?x-ufs-s=5d366449734bcfdcea60508aaec6a012a65a52a8e0b550b7b7538418ca93b9a61`;
+        let body = JSON.stringify({
+            "fileId": request.fileId
+        });
+        return this.fetch(url, {
+            method: "POST",
+            body:body
+        });
+    }
 }
 
 /**
