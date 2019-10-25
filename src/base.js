@@ -228,6 +228,8 @@ export class StorageBase {
      * 预览文件
      * {Object} request 请求体
      * {String}} request.fileId 文件 ID
+     * {String}} request.url 预览服务url
+     * {String}} request.xUfsS 
      * @returns {Promise} 
      */
     preview(request, options) {
@@ -235,7 +237,7 @@ export class StorageBase {
         options = options || {};
         options.headers=options.headers||{};
         //获取文件签名
-        let url = `http://10.201.33.79:31064/preview/preview/oweb365/file?x-ufs-s=5d366449734bcfdcea60508aaec6a012a65a52a8e0b550b7b7538418ca93b9a61`;
+        let url = `${request.url}/preview/preview/oweb365/file?x-ufs-s=${request.xUfsS}`;
         let body = JSON.stringify({
             "fileId": request.fileId
         });
