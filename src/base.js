@@ -226,10 +226,11 @@ export class StorageBase {
 
     /**
      * 预览文件
-     * {Object} request 请求体
-     * {String}} request.fileId 文件 ID
-     * {String}} request.url 预览服务url
-     * {String}} request.xUfsS 
+     * @method preview
+     * @param {Object} request 请求体
+     * @param {String}} request.fileId 文件 ID
+     * @param {String}} request.url 预览服务url
+     * @param {String}} request.xUfsS 签名信息
      * @returns {Promise} 
      */
     preview(request, options) {
