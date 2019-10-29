@@ -28,6 +28,9 @@
 <dt><a href="#delete">delete(fileId)</a> ⇒ <code>Promise</code></dt>
 <dd><p>删除文件</p>
 </dd>
+<dt><a href="#preview">preview(request, }, }, })</a> ⇒ <code>Promise</code></dt>
+<dd><p>预览文件</p>
+</dd>
 </dl>
 
 <a name="StorageClient"></a>
@@ -126,4 +129,18 @@ ufs存储客户端
 | Param | Type | Description |
 | --- | --- | --- |
 | fileId | <code>string</code> | 文件 ID |
+
+<a name="preview"></a>
+
+## preview(request, }, }, }) ⇒ <code>Promise</code>
+预览文件
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| request | <code>Object</code> | 请求体 |
+| } | <code>String</code> | request.url 预览服务 URL |
+| } | <code>String</code> | request.fileId 文件 ID |
+| } | <code>String</code> | request.xUfsS 签名信息 |
 
