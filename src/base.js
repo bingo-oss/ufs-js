@@ -177,7 +177,8 @@ export class StorageBase {
             "contentType": request.contentType,
             "accessControl": request.accessControl,
             "responseHeaders": responseHeaders,
-            "metadata": request.file.metadata
+            "metadata": request.file.metadata,
+            "filename": request.filename || (request.file.metadata ? request.file.metadata.filename : null)
         });
         return this.fetch(url, {
             method: "POST",
