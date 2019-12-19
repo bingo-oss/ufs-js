@@ -135,6 +135,7 @@ export class StorageBase {
    * @param {string} request.contentType 文件内容类型
    * @param {string} request.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READ_WRITE
    * @param {Object} request.metadata 文件元数据
+   * @param {integer} request.filesize 文件大小 
    * @param {Object} request.requestHeaders 要签名的请求头
    * @param {Object} request.requestParameters 要签名的请求参数
    * @param {Object} request.responseHeaders 以后进行文件下载时，文件的 HTTP Response Headers
@@ -178,7 +179,8 @@ export class StorageBase {
             "accessControl": request.accessControl,
             "responseHeaders": responseHeaders,
             "metadata": request.file.metadata,
-            "filename": request.filename || (request.file.metadata ? request.file.metadata.filename : null)
+            "filename": request.filename || (request.file.metadata ? request.file.metadata.filename   : null),
+            "filesize": request.filesize || (request.file.size ? request.file.size : null)
         });
         return this.fetch(url, {
             method: "POST",
