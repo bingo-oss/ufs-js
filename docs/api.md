@@ -19,11 +19,11 @@
 <dt><a href="#getMetadata">getMetadata(fileId)</a></dt>
 <dd><p>获取指定文件的元数据信息</p>
 </dd>
-<dt><a href="#upload">upload(request)</a> ⇒ <code>Promise.&lt;FileStatus&gt;</code></dt>
-<dd><p>上传文件(先进行签名)</p>
+<dt><a href="#upload">upload(request)</a> ⇒ <code>Promise</code></dt>
+<dd><p>上传文件，包含签名上传提交过程</p>
 </dd>
-<dt><a href="#urlFor">urlFor(request)</a> ⇒ <code>Promise.&lt;String&gt;</code></dt>
-<dd><p>签名文件下载请求，并返回产生的文件下载 URL信息（object)</p>
+<dt><a href="#urlFor">urlFor(request)</a> ⇒ <code>Promise</code></dt>
+<dd><p>获取下载文件信息</p>
 </dd>
 <dt><a href="#delete">delete(fileId)</a> ⇒ <code>Promise</code></dt>
 <dd><p>删除文件</p>
@@ -52,7 +52,6 @@ ufs存储客户端
 获取指定的文件信息
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;FileStatus&gt;</code> - See [https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status](https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -82,20 +81,21 @@ ufs存储客户端
 
 <a name="upload"></a>
 
-## upload(request) ⇒ <code>Promise.&lt;FileStatus&gt;</code>
-上传文件(先进行签名)
+## upload(request) ⇒ <code>Promise</code>
+上传文件，包含签名上传提交过程
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;FileStatus&gt;</code> - 已经成功上传的文件信息，See [https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status](https://docs.bingosoft.net/paas/ufs/api/storage/_book/definitions.html#file_status)  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | request | <code>Object</code> | 上传请求对象 |
-| request.storage | <code>string</code> | 要使用存储引擎名称 |
-| request.commitStorage | <code>string</code> | 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage |
+| request.storage | <code>String</code> | 要使用存储引擎名称 |
+| request.commitStorage | <code>String</code> | 提交时候要使用的存储引擎名称，解决跨网上传问题，默认使用storage |
 | request.file | <code>Object</code> | 文件对象，例如：document.getElementById("fileInput").files[0] |
-| request.contentType | <code>string</code> | 文件内容类型 |
-| request.accessControl | <code>string</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READ_WRITE |
+| request.filename | <code>String</code> | 文件名称 |
+| request.filesize | <code>Integer</code> | 文件大小 |
+| request.contentType | <code>String</code> | 文件内容类型 |
+| request.accessControl | <code>String</code> | 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READ_WRITE |
 | request.metadata | <code>Object</code> | 文件元数据 |
 | request.requestHeaders | <code>Object</code> | 要签名的请求头 |
 | request.requestParameters | <code>Object</code> | 要签名的请求参数 |
@@ -103,11 +103,10 @@ ufs存储客户端
 
 <a name="urlFor"></a>
 
-## urlFor(request) ⇒ <code>Promise.&lt;String&gt;</code>
-签名文件下载请求，并返回产生的文件下载 URL信息（object)
+## urlFor(request) ⇒ <code>Promise</code>
+获取下载文件信息
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;String&gt;</code> - 下载地址 URL  
 
 | Param | Type | Description |
 | --- | --- | --- |

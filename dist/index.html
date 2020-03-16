@@ -1,60 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>UFS API测试</title>
     <style>
-        .btn{
-            height: 30px;
-            border: 1px solid #dddddd;
-            outline: none;
-            cursor: pointer;
-        }
-        .title{
-            
-        }
-        .result{
-            height: 200px;
-            border:1px solid #dddddd;
-            background: #000000;
-            color: #ffffff;
-            padding:20px;
-            overflow:scroll;
-            margin-bottom: 10px;
-        }
-        .upload{
-            height: 100px;;
-        }
+      .btn {
+        height: 30px;
+        border: 1px solid #dddddd;
+        outline: none;
+        cursor: pointer;
+      }
+      .result {
+        min-height: 50px;
+        border: 1px solid #dddddd;
+        background: #000000;
+        color: #ffffff;
+        padding: 20px;
+        overflow: scroll;
+        margin-bottom: 10px;
+      }
+      input[type="text"] {
+        height: 20px;
+        width: 180px;
+      }
+      .block {
+          border: 1px dashed #ddd;
+          padding: 10px;
+      }
+      .env {
+        display: flex;
+        padding:  10px 0;
+      }
+      .env span {
+          font-size: 13px;
+          width: 100px;
+          padding-right: 10px;
+          text-align: right;
+      }
     </style>
     <script>
-        function doUpload(){
-            var files = document.getElementById("fileInput").files;
-            if(files.length>0){
-                window.ufsUploadTest(files[0]);
-            }else{
-                alert("请先选择文件");
-            }
+      function initEnv() {
+          window.initEnv();
+      }
+      function doUpload() {
+        var files = document.getElementById("fileInput").files;
+        if (files.length > 0) {
+          window.testUpload(files[0]);
+        } else {
+          alert("请先选择文件");
         }
-        function clearLog(){
-            document.getElementById("result").innerHTML = "";
-        }
+      }
+      function clearLog() {
+        document.getElementById("result").innerHTML = "";
+      }
     </script>
-</head>
-<body>
-    <h3 class="title">上传测试</h3>
-    <div class="upload">
-        <input id="fileInput" type="file">
-        <br /><br />
-        <input type="button" class="btn" value="测试上传" onclick="doUpload()"/>
+  </head>
+  <body>
+    <h3>环境信息</h3>
+    <div class="block">
+        <div class="env">
+            <span>UFS服务地址</span>
+            <input type="text" id="apiServer" value="" />
+            <span>预览服务地址</span>
+            <input type="text" id="previewUrl" value="" />
+            
+        </div>
+        <div class="env">
+            <span>SSO服务地址</span>
+            <input type="text" id="ssoServer" value="" />
+            <span>用户名</span>
+            <input type="text" id="username" value="" />
+            <span>密码</span>
+            <input type="text" id="password" value="" />
+        </div>
+        <div class="env">
+            <span>AppId</span>
+            <input type="text" id="appId" value="" />
+            <span>ClientId</span>
+            <input type="text" id="clientId" value="" />
+            <span>ClientSecret</span>
+            <input type="text" id="clientSecret" value="" />
+        </div>
+        <input type="button"  class="btn" onclick="resetEnv()" value="重置环境" />
     </div>
-    <h3 class="title">转换测试</h3>
-    
-    <h3 class="title">返回结果</h3>
-    <div  id="result" class="result">
-       
+    <h3>上传测试</h3>
+    <div>
+      <input id="fileInput" type="file" />
+      <br /><br />
+      <input type="button" class="btn" value="初始化" onclick="initEnv()" />
+      <input type="button" class="btn" value="上传文件" onclick="doUpload()" />
+      <input type="button" class="btn" value="获取文件下载信息" onclick="getDownloadInfo()" />
+      <input type="button" class="btn" value="获取文件信息" onclick="getFileInfo()" />
+      <input type="button" class="btn" value="获取元数据信息" onclick="getFileHeaderInfo()" />
+      <br /><br />
+      <input type="text" id="fileId" value="" placeholder="输入 fileId" />
+      <input type="text"  id="xUfsS" value="" placeholder="输入 xUfsS" />
+      <input type="button" class="btn" value="获取签名" onclick="getPreviewSign()" />
+      <input type="button" class="btn" value="预览文件" onclick="preViewFile()" />
     </div>
-    <input type="button" class="btn" value="清理日志" onclick="clearLog()"/>
-<script type="text/javascript" src="ufs.js"></script><script type="text/javascript" src="index.js"></script></body>
+    <h3>返回结果</h3>
+    <div id="result" class="result"></div>
+    <input type="button" class="btn" value="清理日志" onclick="clearLog()" />
+  <script type="text/javascript" src="ufs.js"></script><script type="text/javascript" src="index.js"></script></body>
 </html>
