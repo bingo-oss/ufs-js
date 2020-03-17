@@ -15,7 +15,7 @@ npm install ufs-client-js --save
 
 ```javascript
 // web模块化工程中引入
-import {StorageClient,ConvertClient} from "ufs-client-js";
+import { StorageClient } from "ufs-client-js";
 
 // weex中引入
 const ufs = require("ufs-client-js");
@@ -44,32 +44,32 @@ const ufs = require("ufs-client-js");
 ```JavaScript
 
 function testUpload() {
-		//根据实际情况更换地址
-		let apiServer = "http://ufs-dev.bingosoft.net/api/";
-		//初始化对象，并传入 AccessToken，可以通过 app.link.getToken获取
-		let storageClient = new ufs.StorageClient(apiServer, {
-			accessToken: "ead89b24-4fe1-48cd-813f-1947c0bca62f"
-		});
-		//获取文件对象
-		let files = document.getElementById("fileInput").files;
-        if(files.length==0){
-			alert("请先选择文件");
-			return;
-		}
-		//执行上传
-		storageClient.upload({
-			file: files[0]
-		}).then((data, resp) => {
-			alert(JSON.stringify(data));
-			//上传完成并得到路径
-			storageClient.urlFor({
-				fileId: data.id
-			}).then(urlInfo => {
-				alert(JSON.stringify(urlInfo));
-			});
-		}).catch((err) => {
-			alert(JSON.stringify(err));
-		});
+    //根据实际情况更换地址
+    let apiServer = "http://ufs-dev.bingosoft.net/api/";
+    //初始化对象，并传入 AccessToken，可以通过app.link.getToken获取
+    let storageClient = new StorageClient(apiServer, {
+        accessToken: "ead89b24-4fe1-48cd-813f-1947c0bca62f"
+    });
+    //获取文件对象
+    let files = document.getElementById("fileInput").files;
+    if(files.length==0){
+        alert("请先选择文件");
+        return;
+    }
+    //执行上传
+    storageClient.upload({
+        file: files[0]
+    }).then((data, resp) => {
+        alert(JSON.stringify(data));
+        //上传完成并得到路径
+        storageClient.urlFor({
+            fileId: data.id
+        }).then(urlInfo => {
+            alert(JSON.stringify(urlInfo));
+        });
+    }).catch((err) => {
+        alert(JSON.stringify(err));
+    });
 }
 
 ```
@@ -80,48 +80,46 @@ function testUpload() {
 
 ```JavaScript
 testUpload(){
-        //根据实际情况更换地址
-        let apiServer = "http://ufs-dev.bingosoft.net/api/";
-        let storageClient = new StorageClient(apiServer,{
-            accessToken:"ead89b24-4fe1-48cd-813f-1947c0bca62f"
-        });
-		 //使用Camera模块
-        let camera = weex.requireModule("CameraModule");
-        let params ={};
+    //根据实际情况更换地址
+    let apiServer = "http://ufs-dev.bingosoft.net/api/";
+    let storageClient = new StorageClient(apiServer,{
+        accessToken:"ead89b24-4fe1-48cd-813f-1947c0bca62f"
+    });
+        //使用Camera模块
+    let camera = weex.requireModule("CameraModule");
+    let params ={};
 
-        //场景：拍照上传
-        camera.captureImage(params, (res)=>{
-            let filePath = res.filePaths[0];
-            if(!filePath){this.$toast("上传文件不存在!");return;}
+    //场景：拍照上传
+    camera.captureImage(params, (res)=>{
+        let filePath = res.filePaths[0];
+        if(!filePath){this.$toast("上传文件不存在!");return;}
+        
+        //压缩图片再上传
+        camera.compressImage({
+            sourcePath:filePath,
+            quality:50
+        },(res)=>{
+            filePath = res.filePaths[0];
+            this.$alert(filePath);
             
-            //压缩图片再上传
-            camera.compressImage({
-                sourcePath:filePath,
-                quality:50
-            },(res)=>{
-                filePath = res.filePaths[0];
-                this.$alert(filePath);
+            //执行上传文件
+            storageClient.upload({
+                file:filePath
+            }).then((data,resp)=>{
+                this.$alert(data);
                 
-                //执行上传文件
-                storageClient.upload({
-                    file:filePath
-                }).then((data,resp)=>{
-                    this.$alert(data);
-                    
-                    //上传完成并得到路径
-                    storageClient.urlFor({
-                        fileId: data.id
-                    }).then(url => {
-                        this.$alert(url);
-                    });
-                }).catch((resp)=>{
-                    this.$alert(resp);
+                //上传完成并得到路径
+                storageClient.urlFor({
+                    fileId: data.id
+                }).then(url => {
+                    this.$alert(url);
                 });
+            }).catch((resp)=>{
+                this.$alert(resp);
             });
-
         });
 
-    }
+    });
 }
 ```
 
