@@ -113,7 +113,7 @@ export class StorageBase {
    * @param {Object} request.metadata 文件元数据
    * @param {Object} request.requestHeaders 要签名的请求头
    * @param {Object} request.requestParameters 要签名的请求参数
-   * @param {Object} request.responseHeaders 以后进行文件下载时，文件的 HTTP Response Headers
+   * @param {Object} request.responseHeaders 以后进行文件下载时，文件的 HTTP Response Headers，commit阶段使用
    * @returns {Promise}
    */
   upload(request, options) {
@@ -147,15 +147,17 @@ export class StorageBase {
         console.log(request.file);
         let filename = request.filename || request.file.name;
         let filesize = request.filesize || request.file.size;
+        let responseHeaders = request.responseHeaders || {};
+        responseHeaders = Object.assign(responseHeaders, {
+          "Content-Disposition":`inline; filename=${filename}`
+        });
         let body = JSON.stringify({
           storage: request.commitStorage || request.storage,
           uploadId: uploadId,
           contentType: request.contentType,
           accessControl: request.accessControl,
-          responseHeaders: {
-            "Content-Disposition":`inline; filename=${filename}`
-          },
-          metadata: request.file.metadata,
+          responseHeaders: responseHeaders,
+          metadata: request.metadata,
           filename: filename,
           filesize: filesize
         });
