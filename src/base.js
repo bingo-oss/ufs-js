@@ -109,7 +109,7 @@ export class StorageBase {
    * @param {String} request.filename 文件名称
    * @param {Integer} request.filesize 文件大小
    * @param {String} request.contentType 文件内容类型
-   * @param {String} request.accessControl 文件的访问权限，PRIVATE、PUBLIC_READ、PUBLIC_READ_WRITE
+   * @param {String} request.accessControl 文件的访问权限
    * @param {Object} request.metadata 文件元数据
    * @param {Object} request.requestHeaders 要签名的请求头
    * @param {Object} request.requestParameters 要签名的请求参数
@@ -215,9 +215,10 @@ export class StorageBase {
    * 预览文件
    * @method preview
    * @param {Object} request 请求体
-   * @param {String}} request.url 预览服务 URL
-   * @param {String}} request.fileId 文件 ID
-   * @param {String}} request.xUfsS 签名信息
+   * @param {String} request.url 预览服务 URL
+   * @param {String} request.fileId 文件 ID
+   * @param {String} request.xUfsS 签名信息
+   * @param {String} request.appId 应用Id 
    * @returns {Promise}
    */
   preview(request = {}) {
@@ -227,7 +228,10 @@ export class StorageBase {
     });
     return this.fetch(url, {
       method: "POST",
-      body: body
+      body: body,
+      headers: {
+        "x-ufs-appId": request.appId || this.appId
+      }
     });
   }
 }
