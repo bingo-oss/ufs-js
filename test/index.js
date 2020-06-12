@@ -3,11 +3,11 @@ import { StorageClient } from "../src/ufs";
 let apiServer = "https://dfuse.bingosoft.net/ufsapi";
 let ssoServer = "https://dfuse.bingosoft.net/sso";
 let previewUrl = "http://10.200.21.128:31064/preview";
-let appId = "RHVkd2ZYVXU1VjNmeFJycEVuM0xGRQ";
+let appId = "d0FweHJXdU1jUkpTNTM2UnV4WEtmQw";
 let username = "pengwei001";
 let password = "111111";
-let clientId = "pwclient001";
-let clientSecret = "pwsecret001";
+let clientId = "app1";
+let clientSecret = "app1";
 
 // 打印日志
 let log = (log, clear) => {
@@ -98,7 +98,7 @@ window.getDownloadInfo = () => {
     .urlFor({
       fileId: window.fileId,
       responseHeaderOverrides: {
-        "Content-Disposition": `attachment; filename=${window.file.name}`
+        // "Content-Disposition": `attachment; filename=${window.file.name}`
       }
     })
     .then(res => {
