@@ -22,21 +22,24 @@ function attachUploadProgress(xhr, options) {
 
 // 区分weex和web环境
 export function fetchAdapter(url, options) {
-  options = Object.assign({}, options);
+  options = Object.assign({
+    jsonParse: true,
+    responseType: ""
+  }, options);
   try {
     //weex client ajax
     if (weex) {
       return new Promise((resolve, reject) => {
         var stream = weex.requireModule("stream");
         options.url = url;
-        stream.fetch(options, res => {
+        stream.fetch(options, (res) => {
           if (res.ok) {
             if (typeof res.data == "string") {
               res.data = JSON.parse(res.data);
             }
-            resolve(res.data, res.status, res.statusText);
+            resolve(res.data);
           } else {
-            reject(res.status, res.statusText);
+            reject(res);
           }
         });
       });
@@ -53,12 +56,13 @@ export function fetchAdapter(url, options) {
           xhr.setRequestHeader(key, options.headers[key]);
         }
       }
+      xhr.responseType =  options.responseType;
       xhr.onreadystatechange = function() {
         if (xhr.readyState != 4) {
           return;
         }
         if (xhr.status == 200) {
-          let response = JSON.parse(xhr.response);
+          let response = options.jsonParse ? JSON.parse(xhr.response) : xhr.response;
           resolve(response);
         } else {
           reject(xhr);
@@ -86,13 +90,13 @@ export function uploadAdapter(url, options, fileObj) {
           url,
           {
             headers: options.headers,
-            method: "PUT"
+            method: "PUT",
           },
           null,
-          result => {
-            resolve();
+          (result) => {
+            resolve(result);
           },
-          err => {
+          (err) => {
             reject(err);
           }
         );
@@ -115,7 +119,7 @@ export function uploadAdapter(url, options, fileObj) {
           return;
         }
         if (xhr.status == 200) {
-          resolve();
+          resolve(xhr.response);
         } else {
           reject(xhr);
         }
@@ -154,4 +158,21 @@ export function rebuildUrlIfNecessary(url, options) {
     return url;
   }
   return url;
+}
+
+export function getQuery(name, url) {
+  let query;
+  if (url) {
+    query = url.split("?")[1];
+  } else {
+    query = window.location.search.substr(1);
+  }
+  let vars = query.split("&");
+  for (let i = 0; i < vars.length; i++) {
+    let pair = vars[i].split("=");
+    if (pair[0] == name) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
+  return null;
 }

@@ -1,6 +1,6 @@
 {
   "name": "ufs-client-js",
-  "version": "1.4.12",
+  "version": "1.4.13",
   "description": "品高统一文件服务(UFS) JSSDK",
   "author": "",
   "license": "MIT",
@@ -24,6 +24,7 @@
     "prod": "webpack  --env.production --config webpack.base.js"
   },
   "dependencies": {
+    "jszip": "^3.5.0",
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
