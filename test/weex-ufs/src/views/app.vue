@@ -54,7 +54,7 @@ module.exports = {
         this.filePath.lastIndexOf("/") + 1
       );
       // 设置ufs服务地址 和 token(token来自sso)
-      let token = "YmluZ286NGQyZTAzYjQtMTdlOS00ZjNjLTljYmItMjk0ZTRiZWExMTYx";
+      let token = "YmluZ286MzcwYTVkYTItMDE5OS00MzRhLWE4MjAtYWRkMTRlZjRiMWYw";
       let apiServer = "https://dfuse.bingosoft.net/ufsapi";
       let appId = "d0FweHJXdU1jUkpTNTM2UnV4WEtmQw";
       let storage = new ufs.StorageClient(apiServer, {
@@ -65,9 +65,11 @@ module.exports = {
         .upload({
           file: this.filePath,
           accessControl: "PUBLIC_READ_WRITE"
+        }, {
+          baseUrl: apiServer
         })
         .then((data, resp) => {
-          this.$alert(data);
+          // this.$alert(data);
           let fileId = data.id;
           storage
             .urlFor({
@@ -78,9 +80,8 @@ module.exports = {
               }
             })
             .then(res => {
-              this.$alert(res.url);
-              this.remoteImageUrl = res.url;
-              // this.filePath =res.url;
+              this.$alert("xxxx:"+res.url);
+              this.remoteImageUrl =  res.url;
             });
         })
         .catch(err => {

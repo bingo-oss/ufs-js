@@ -99,6 +99,8 @@ window.getDownloadInfo = () => {
       fileId: window.fileId,
       responseHeaderOverrides: {
         // "Content-Disposition": `attachment; filename=${window.file.name}`
+        // "Content-Disposition": "form-data; name=file",
+        // "Content-Type": "image/png"
       }
     })
     .then(res => {
@@ -157,3 +159,16 @@ window.preViewFile = () => {
     log(`预览结果: ${JSON.stringify(res)}`);
   });
 };
+
+window.fileDownloadZip = () => {
+  if (!storageClient) return;
+  let fileIds = [ window.fileId, "6683611312621686784","6683611621720920064","6683611912440713216","6683612292314632192" ];
+  storageClient.multiFileDownload(fileIds, {
+    zipName: "Example",
+    zipFolder: "temp",
+    autoDownload: true
+  }).then(res => {
+    console.log(typeof res);
+    console.log(res);
+  })
+}
