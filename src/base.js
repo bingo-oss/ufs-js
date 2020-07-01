@@ -247,6 +247,7 @@ export class StorageBase {
    * @param {Object} options 下载文件的参数
    * @param {String} options.zipName 下载文件的名称
    * @param {String} options.zipFolder zip解压后的文件夹
+   * @param {String} options.fileNameReplaceRegExp 文件名称替换表达式，根据表达式替换掉内容
    * @param {Boolean} options.autoDownload 是否自动保存下载
    * @param {String} options.storage 要使用存储引擎名称
    * @param {Object} options.requestHeaders 要进行签要的 HTTP 请求头
@@ -272,6 +273,10 @@ export class StorageBase {
         fileName = fileName.substr(fileName.indexOf("=") + 1);
       } else {
         fileName = new Date().getTime();
+      }
+      // 获取到的文件名可能需要进一步出来，例如filename中带了 UTF-8,需要去掉
+      if(options.fileNameReplaceRegExp) {
+        fileName = fileName.replace(options.fileNameReplaceRegExp,"");
       }
       return fileName;
     }
