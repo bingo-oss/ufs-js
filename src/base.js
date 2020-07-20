@@ -211,6 +211,12 @@ export class StorageBase {
     });
   }
 
+  /**
+   * 获取预览签名(1.4.x已废弃)
+   * @method generatePreviewSign
+   * @deprecated
+   * @param {object} request 
+   */
   generatePreviewSign(request = {}) {
     let url = `${request.url}/preview/singer/${request.fileId}`;
     return this.fetch(url);
