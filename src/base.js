@@ -156,13 +156,16 @@ export class StorageBase {
         responseHeaders = Object.assign(responseHeaders, {
           "Content-Disposition": `inline; filename=${filename}`,
         });
+        let defaultMeta = {
+          filename: filename
+        };
         let body = JSON.stringify({
           storage: request.commitStorage || request.storage,
           uploadId: uploadId,
           contentType: request.contentType,
           accessControl: request.accessControl,
           responseHeaders: responseHeaders,
-          metadata: request.metadata,
+          metadata: Object.assign(defaultMeta, request.metadata || {}),
           filename: filename,
           filesize: filesize,
         });
