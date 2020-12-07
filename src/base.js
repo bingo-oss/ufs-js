@@ -120,6 +120,9 @@ export class StorageBase {
    * @param {Object} request.requestHeaders 要签名的请求头
    * @param {Object} request.requestParameters 要签名的请求参数
    * @param {Object} request.responseHeaders 以后进行文件下载时，文件的 HTTP Response Headers，commit阶段使用
+   * @param {Object} options 其他参数
+   * @param {Function} options.onProgress 进度回调方法
+   * @param {Object} options.headers http请求头
    * @returns {Promise}
    */
   upload(request, options) {
