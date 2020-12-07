@@ -172,6 +172,7 @@ export class StorageBase {
         return this.fetch(url, {
           method: "POST",
           body: body,
+          onProgress: options.onProgress
         });
       });
   }
