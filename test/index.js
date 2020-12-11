@@ -2,7 +2,7 @@ import { StorageClient } from "../src/ufs";
 
 let apiServer = "https://dfuse.bingosoft.net/ufsapi";
 let ssoServer = "https://dfuse.bingosoft.net/sso";
-let previewUrl = "http://10.200.21.128:31064/preview";
+let previewUrl = "https://dfuse.bingosoft.net/ufsview";
 let appId = "d0FweHJXdU1jUkpTNTM2UnV4WEtmQw";
 let username = "pengwei001";
 let password = "111111";
@@ -144,7 +144,7 @@ window.getPreviewSign = () => {
   });
 }
 
-// 预览文件
+// 预览文件Office365
 window.preViewFile = () => {
   let xUfsS = document.getElementById("xUfsS").value;
   let fileId = document.getElementById("fileId").value;
@@ -159,6 +159,23 @@ window.preViewFile = () => {
     log(`预览结果: ${JSON.stringify(res)}`);
   });
 };
+
+window.preViewImage = () => {
+  let xUfsS = "d33a61f37c6902cc6fffed0343363fb875a303dd02b890af427acfe6e6fc4f66"; // document.getElementById("xUfsS").value;
+  let fileId = "6743069151961473024"; // document.getElementById("fileId").value;
+  if(xUfsS == "") return;
+  if (!storageClient) return;
+  let request = {
+      url: previewUrl,
+      fileId: fileId,
+      xUfsS: xUfsS,
+      outputFormat: "jpg"
+  }
+  console.log(storageClient);
+  return storageClient.previewImage(request).then(res => {
+    log(`预览结果: ${JSON.stringify(res)}`);
+  });
+}
 
 window.fileDownloadZip = () => {
   if (!storageClient) return;

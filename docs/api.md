@@ -29,7 +29,10 @@
 <dd><p>删除文件</p>
 </dd>
 <dt><a href="#preview">preview(request)</a> ⇒ <code>Promise</code></dt>
-<dd><p>预览文件</p>
+<dd><p>预览文件(office365)</p>
+</dd>
+<dt><a href="#previewImage">previewImage(request)</a> ⇒ <code>Promise</code></dt>
+<dd><p>预览图片</p>
 </dd>
 <dt><a href="#multiFileDownload">multiFileDownload(fileIds, options)</a></dt>
 <dd><p>多文件下载，并生成zip(仅支持web端，weex端暂不支持)</p>
@@ -138,7 +141,7 @@ ufs存储客户端
 <a name="preview"></a>
 
 ## preview(request) ⇒ <code>Promise</code>
-预览文件
+预览文件(office365)
 
 **Kind**: global function  
 
@@ -149,6 +152,23 @@ ufs存储客户端
 | request.fileId | <code>String</code> | 文件 ID |
 | request.xUfsS | <code>String</code> | 签名信息 |
 | request.appId | <code>String</code> | 应用Id |
+
+<a name="previewImage"></a>
+
+## previewImage(request) ⇒ <code>Promise</code>
+预览图片
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| request | <code>Object</code> | 请求体 |
+| request.url | <code>String</code> | 预览服务 URL |
+| request.fileId | <code>String</code> | 文件 ID |
+| request.xUfsS | <code>String</code> | 签名信息 |
+| request.appId | <code>String</code> | 应用Id |
+| request.outputFormat | <code>String</code> | 输出格式,例如 jpg/png等 |
+| request.convertParams | <code>String</code> | 转换参数 { "size": {"width": 200, "height": 300} } |
 
 <a name="multiFileDownload"></a>
 
