@@ -152,6 +152,8 @@ ufs存储客户端
 | request.fileId | <code>String</code> | 文件 ID |
 | request.xUfsS | <code>String</code> | 签名信息 |
 | request.appId | <code>String</code> | 应用Id |
+| request.headers | <code>Object</code> | 请求头 |
+| request.body | <code>String</code> | 额外信息 |
 
 <a name="previewImage"></a>
 

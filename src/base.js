@@ -221,19 +221,21 @@ export class StorageBase {
      * @param {String} request.fileId 文件 ID
      * @param {String} request.xUfsS 签名信息
      * @param {String} request.appId 应用Id
+     * @param {Object} request.headers 请求头
+     * @param {String} request.body 额外信息
      * @returns {Promise}
      */
     preview(request = {}) {
         let url = `${request.url}/preview/oweb365/file?x-ufs-s=${request.xUfsS}`;
-        let body = JSON.stringify({
+        let body = Object.assign({
             fileId: request.fileId
-        });
+        }, request.body);
         return this.fetch(url, {
             method: "POST",
-            body: body,
-            headers: {
+            body: JSON.stringify(body),
+            headers: Object.assign({
                 "x-ufs-appId": request.appId || this.appId
-            }
+            }, request.headers)
         });
     }
 
