@@ -222,7 +222,7 @@ export class StorageBase {
      * @param {String} request.xUfsS 签名信息
      * @param {String} request.appId 应用Id
      * @param {Object} request.headers 请求头
-     * @param {String} request.body 额外信息
+     * @param {Object} request.body 额外信息
      * @returns {Promise}
      */
     preview(request = {}) {
