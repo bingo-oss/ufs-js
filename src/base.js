@@ -1,6 +1,4 @@
 import { fetchAdapter, uploadAdapter, rebuildUrlIfNecessary, getQuery } from "./common";
-import jszip from "jszip";
-import saveAs from "./fileSaver";
 /**
  * ufs存储客户端
  * @class StorageClient
@@ -268,80 +266,6 @@ export class StorageBase {
             headers: {
                 "x-ufs-appId": request.appId || this.appId
             }
-        });
-    }
-
-    /**
-     * 多文件下载，并生成zip(仅支持web端，weex端暂不支持)
-     * @method multiFileDownload
-     * @param { Array<String> } fileIds 文件Id
-     * @param {Object} options 下载文件的参数
-     * @param {String} options.zipName 下载文件的名称
-     * @param {String} options.zipFolder zip解压后的文件夹
-     * @param {String} options.fileNameReplaceRegExp 文件名称替换表达式，根据表达式替换掉内容
-     * @param {Boolean} options.autoDownload 是否自动保存下载
-     * @param {String} options.storage 要使用存储引擎名称
-     * @param {Object} options.requestHeaders 要进行签要的 HTTP 请求头
-     * @param {Object} options.requestParameters 要进行签名的 HTTP QUERY 参数
-     * @param {Object} options.responseHeaderOverrides 下载时要重写的文件 HTTP Response Headers
-     * @param {String} options.expires 过期时间，单位是秒，设置-1获取永久地址
-     */
-    multiFileDownload(fileIds, options) {
-        let zip = new jszip();
-        // 压缩文件名称
-        let zipFileName = `${options.zipName || new Date().getTime()}.zip`;
-        let zipFolder = `${options.zipFolder || "file"}`;
-        let zipFiles = zip.folder(zipFolder);
-
-        let urlPromiseArr = [];
-        let filePromiseArr = [];
-        let urlArr = [];
-
-        // 从url获取文件名，默认用时间无后缀
-        let getFileName = function(url) {
-            let fileName = getQuery("response-content-disposition", url);
-            if (fileName) {
-                fileName = fileName.substr(fileName.indexOf("=") + 1);
-            } else {
-                fileName = new Date().getTime();
-            }
-            // 获取到的文件名可能需要进一步出来，例如filename中带了 UTF-8,需要去掉
-            if (options.fileNameReplaceRegExp) {
-                fileName = fileName.replace(options.fileNameReplaceRegExp, "");
-            }
-            return fileName;
-        };
-
-        // 获取每一个fileId对应的文件下载路径
-        // TODO: 后面支持直接传入url或者从ufs中批量获取下载路径
-        fileIds.forEach((id) => {
-            let request = Object.assign({ fileId: id }, options);
-            urlPromiseArr.push(this.urlFor(request));
-        });
-
-        return Promise.all(urlPromiseArr).then((urlObj) => {
-            // 获取每一个文件
-            urlObj.forEach((file) => {
-                // url暂存
-                urlArr.push(file.url);
-                // 请求必须返回 arraybuffer 否则压缩后无法打开
-                let getRemoteFile = fetchAdapter(file.url, {
-                    jsonParse: false,
-                    responseType: "arraybuffer"
-                });
-                filePromiseArr.push(getRemoteFile);
-            });
-
-            return Promise.all(filePromiseArr).then((fileList) => {
-                fileList.forEach((fileData, index) => {
-                    let fileName = getFileName(urlArr[index]);
-                    zipFiles.file(fileName, fileData, { binary: true });
-                });
-                return zip.generateAsync({ type: "blob" }).then((content) => {
-                    options.autoDownload && saveAs(content, zipFileName);
-                    return Promise.resolve(content);
-                });
-            });
         });
     }
 }

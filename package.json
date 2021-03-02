@@ -1,7 +1,7 @@
 {
-  "name": "ufs-client-js",
+  "name": "ufs-client-weex",
   "version": "1.6.3",
-  "description": "品高统一文件服务(UFS) JSSDK",
+  "description": "品高统一文件服务(UFS) Weex JSSDK",
   "author": "",
   "license": "MIT",
   "keywords": [
@@ -24,7 +24,6 @@
     "prod": "webpack  --env.production --config webpack.base.js"
   },
   "dependencies": {
-    "jszip": "^3.5.0",
     "webpack-merge": "^4.2.2"
   },
   "devDependencies": {
