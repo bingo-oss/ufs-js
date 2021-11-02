@@ -3,11 +3,11 @@ import { StorageClient } from "../src/ufs";
 let apiServer = "https://dfuse.bingosoft.net/ufsapi";
 let ssoServer = "https://dfuse.bingosoft.net/sso";
 let previewUrl = "https://dfuse.bingosoft.net/ufsview";
-let appId = "d0FweHJXdU1jUkpTNTM2UnV4WEtmQw";
-let username = "pengwei001";
+let appId = "ZVl6dExmOXVFWnlSUHM4a0pFVUZtNg";
+let username = "wuweihua";
 let password = "111111";
-let clientId = "app1";
-let clientSecret = "app1";
+let clientId = "whclient";
+let clientSecret = "whsecret";
 
 // 打印日志
 let log = (log, clear) => {
@@ -187,5 +187,30 @@ window.fileDownloadZip = () => {
   }).then(res => {
     console.log(typeof res);
     console.log(res);
+  })
+}
+window.preViewImageFiles = () => {
+  let sign = "85450a1316c37c9cc35a855c5b77d47d3e9d59b67e0d573ed2b9e8c7b8a6256f";
+  let fileId =  "6861195236642643968";
+  if (!storageClient) return;
+  storageClient.previewImageFiles({
+    url: previewUrl,
+    expired: 1635924827276,
+    fileObjArr: [
+      { fileId: fileId, sign: sign }
+    ]
+  }).then(res => {
+    log(`预览结果: ${JSON.stringify(res)}`);
+  })
+}
+
+window.mergePdf = () => {
+  let fileIds =  [window.fileId];
+  if (!storageClient) return;
+  storageClient.mergePdf({
+    url: apiServer,
+    fileIds: fileIds
+  }).then(res => {
+    log(`预览结果: ${JSON.stringify(res)}`);
   })
 }

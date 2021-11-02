@@ -10,7 +10,7 @@
 ## Functions
 
 <dl>
-<dt><a href="#status">status(fileId)</a> ⇒ <code>Promise.&lt;FileStatus&gt;</code></dt>
+<dt><a href="#status">status(fileId)</a> ⇒ <code>[ &#x27;Promise&#x27; ].&lt;FileStatus&gt;</code></dt>
 <dd><p>获取指定的文件信息</p>
 </dd>
 <dt><a href="#getResponseHeaders">getResponseHeaders(fileId)</a></dt>
@@ -34,8 +34,14 @@
 <dt><a href="#previewImage">previewImage(request)</a> ⇒ <code>Promise</code></dt>
 <dd><p>预览图片</p>
 </dd>
+<dt><a href="#previewImageFiles">previewImageFiles(request)</a> ⇒ <code>Promise</code></dt>
+<dd><p>批量获取可预览的文件链接</p>
+</dd>
 <dt><a href="#multiFileDownload">multiFileDownload(fileIds, options)</a></dt>
 <dd><p>多文件下载，并生成zip(仅支持web端，weex端暂不支持)</p>
+</dd>
+<dt><a href="#mergePdf">mergePdf(request)</a> ⇒ <code>Promise</code></dt>
+<dd><p>PDF文件合并</p>
 </dd>
 </dl>
 
@@ -54,7 +60,7 @@ ufs存储客户端
 **Kind**: global class  
 <a name="status"></a>
 
-## status(fileId) ⇒ <code>Promise.&lt;FileStatus&gt;</code>
+## status(fileId) ⇒ <code>[ &#x27;Promise&#x27; ].&lt;FileStatus&gt;</code>
 获取指定的文件信息
 
 **Kind**: global function  
@@ -153,7 +159,7 @@ ufs存储客户端
 | request.xUfsS | <code>String</code> | 签名信息 |
 | request.appId | <code>String</code> | 应用Id |
 | request.headers | <code>Object</code> | 请求头 |
-| request.body | <code>String</code> | 额外信息 |
+| request.body | <code>Object</code> | 额外信息 |
 
 <a name="previewImage"></a>
 
@@ -172,6 +178,21 @@ ufs存储客户端
 | request.outputFormat | <code>String</code> | 输出格式,例如 jpg/png等 |
 | request.convertParams | <code>String</code> | 转换参数 { "size": {"width": 200, "height": 300} } |
 
+<a name="previewImageFiles"></a>
+
+## previewImageFiles(request) ⇒ <code>Promise</code>
+批量获取可预览的文件链接
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| request | <code>Object</code> | 请求体 |
+| request.url | <code>String</code> | 预览服务 URL |
+| request.expired | <code>Number</code> | 过期时间戳 |
+| request.appId | <code>String</code> | 应用Id |
+| request.fileObjArr | <code>Array</code> | 文件数组 [{fileId:'', sign: ''}] |
+
 <a name="multiFileDownload"></a>
 
 ## multiFileDownload(fileIds, options)
@@ -181,7 +202,7 @@ ufs存储客户端
 
 | Param | Type | Description |
 | --- | --- | --- |
-| fileIds | <code>Array.&lt;String&gt;</code> | 文件Id |
+| fileIds | <code>[ &#x27;Array&#x27; ].&lt;String&gt;</code> | 文件Id |
 | options | <code>Object</code> | 下载文件的参数 |
 | options.zipName | <code>String</code> | 下载文件的名称 |
 | options.zipFolder | <code>String</code> | zip解压后的文件夹 |
@@ -192,4 +213,18 @@ ufs存储客户端
 | options.requestParameters | <code>Object</code> | 要进行签名的 HTTP QUERY 参数 |
 | options.responseHeaderOverrides | <code>Object</code> | 下载时要重写的文件 HTTP Response Headers |
 | options.expires | <code>String</code> | 过期时间，单位是秒，设置-1获取永久地址 |
+
+<a name="mergePdf"></a>
+
+## mergePdf(request) ⇒ <code>Promise</code>
+PDF文件合并
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| request | <code>Object</code> | 请求体 |
+| request.url | <code>String</code> | 服务 URL |
+| request.fileIds | <code>Array</code> | 文件Id数组,只支持图片，pdf文件的合并 |
+| request.storage | <code>String</code> | 文件的存储位置 |
 

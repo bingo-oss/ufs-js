@@ -272,6 +272,28 @@ export class StorageBase {
     }
 
     /**
+     * 批量获取可预览的文件链接
+     * @method previewImageFiles
+     * @param {Object} request 请求体
+     * @param {String} request.url 预览服务 URL
+     * @param {Number} request.expired 过期时间戳
+     * @param {String} request.appId 应用Id
+     * @param {Array} request.fileObjArr 文件数组 [{fileId:'', sign: ''}]
+     * @returns {Promise}
+     */
+    previewImageFiles(request = {}) {
+        let url = `${request.url}/preview/image/files?x-ufs-expired=${request.expired}`;
+        let body = request.fileObjArr || [];
+        return this.fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "x-ufs-appId": request.appId || this.appId
+            }
+        });
+    }
+
+    /**
      * 多文件下载，并生成zip(仅支持web端，weex端暂不支持)
      * @method multiFileDownload
      * @param { Array<String> } fileIds 文件Id
@@ -342,6 +364,32 @@ export class StorageBase {
                     return Promise.resolve(content);
                 });
             });
+        });
+    }
+
+    /**
+     * PDF文件合并
+     * @method mergePdf
+     * @param {Object} request 请求体
+     * @param {String} request.url 服务 URL
+     * @param {Array} request.fileIds 文件Id数组,只支持图片，pdf文件的合并
+     * @param {String} request.storage 文件的存储位置
+     * @returns {Promise}
+     */
+     mergePdf(request = {}) {
+        let url = `${request.url}/merge/pdf`;
+        let body = {
+            ufsIds: request.fileIds || []
+        };
+        if (request.storage) {
+            body.storage = request.storage
+        }
+        return this.fetch(url, {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "x-ufs-appId": request.appId || this.appId
+            }
         });
     }
 }
