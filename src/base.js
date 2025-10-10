@@ -118,6 +118,7 @@ export class StorageBase {
      * @param {Object} options 其他参数
      * @param {Function} options.onProgress 进度回调方法
      * @param {Object} options.headers http请求头
+     * @param {Boolean} options.omitFileSize 是否省略文件大小，默认false
      * @returns {Promise}
      */
     upload(request, options) {
@@ -165,7 +166,7 @@ export class StorageBase {
                     responseHeaders: responseHeaders,
                     metadata: Object.assign(defaultMeta, request.metadata || {}),
                     filename: filename,
-                    filesize: filesize
+                    filesize: options.omitFileSize ? undefined : filesize
                 });
                 return this.fetch(url, {
                     method: "POST",
